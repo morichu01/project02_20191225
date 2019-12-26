@@ -12,7 +12,8 @@
 
     <!-- Scripts -->
     <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
-    <script src="{{ secure_asset('js/app.js') }}"></script> <!-- ssl通信のため -->
+    <!-- ssl通信のため -->
+    <script src="{{ secure_asset('js/app.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,7 +21,9 @@
 
     <!-- Styles -->
     <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
-    <script src="{{ secure_assset('css/app.css') }}"></script> <!-- ssl通信のため -->
+    <!-- ssl通信のため -->
+    <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
+
 </head>
 
 <body>
