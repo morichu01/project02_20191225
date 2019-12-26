@@ -29,103 +29,103 @@
         }
       },
       methods: {
-        detectMotion() {
+        // detectMotion() {
 
-          setInterval(() => {
+        //   setInterval(() => {
 
-            if (!this.detecting) {
+        //     if (!this.detecting) {
 
-              this.detecting = true;
-              const prevImageData = this.imageData;
-              const video = this.video;
-              this.context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-              this.imageData = this.context.getImageData(0, 0, video.videoWidth, video.videoHeight);
+        //       this.detecting = true;
+        //       const prevImageData = this.imageData;
+        //       const video = this.video;
+        //       this.context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+        //       this.imageData = this.context.getImageData(0, 0, video.videoWidth, video.videoHeight);
 
-              if (this.hasDifference(prevImageData, this.imageData)) { // 2枚の画像に違いがあるかをチェック
+        //       if (this.hasDifference(prevImageData, this.imageData)) { // 2枚の画像に違いがあるかをチェック
 
-                // 画像を送信
-                this.canvas.toBlob((blob) => {
+        //         // 画像を送信
+        //         this.canvas.toBlob((blob) => {
 
-                  const url = '/motion_detection/save_image';
-                  let formData = new FormData();
-                  formData.append('image', blob);
+        //           const url = '/motion_detection/save_image';
+        //           let formData = new FormData();
+        //           formData.append('image', blob);
 
-                  axios.post(url, formData)
-                    .then((response) => {
+        //           axios.post(url, formData)
+        //             .then((response) => {
 
-                      if (response.data.result) {
+        //               if (response.data.result) {
 
-                        console.log('画像を保存しました');
+        //                 console.log('画像を保存しました');
 
-                      }
+        //               }
 
-                    })
-                    .catch((error) => {
+        //             })
+        //             .catch((error) => {
 
-                      // エラー処理
+        //               // エラー処理
 
-                    })
-                    .then(() => {
+        //             })
+        //             .then(() => {
 
-                      this.detecting = false;
+        //               this.detecting = false;
 
-                    });
+        //             });
 
-                });
+        //         });
 
-              } else {
+        //       } else {
 
-                this.detecting = false;
+        //         this.detecting = false;
 
-              }
+        //       }
 
-            }
+        //     }
 
-          }, 500);
+        //   }, 500);
 
-        },
-        hasDifference(prevImageData, currentImageData) {
+        // },
+        // hasDifference(prevImageData, currentImageData) {
 
-          if (prevImageData === null) {
+        //   if (prevImageData === null) {
 
-            return false;
+        //     return false;
 
-          }
+        //   }
 
-          for (let i = 0; i < currentImageData.data.length; i += 4) { // 画像をピクセル単位で比較
+        //   for (let i = 0; i < currentImageData.data.length; i += 4) { // 画像をピクセル単位で比較
 
-            let prevRGB = {
-              red: prevImageData.data[i] / 3,
-              green: prevImageData.data[i + 1] / 3,
-              blue: prevImageData.data[i + 2] / 3,
-            };
-            let currentRGB = {
-              red: currentImageData.data[i] / 3,
-              green: currentImageData.data[i + 1] / 3,
-              blue: currentImageData.data[i + 2] / 3,
-            };
+        //     let prevRGB = {
+        //       red: prevImageData.data[i] / 3,
+        //       green: prevImageData.data[i + 1] / 3,
+        //       blue: prevImageData.data[i + 2] / 3,
+        //     };
+        //     let currentRGB = {
+        //       red: currentImageData.data[i] / 3,
+        //       green: currentImageData.data[i + 1] / 3,
+        //       blue: currentImageData.data[i + 2] / 3,
+        //     };
 
-            let differences = {
-              red: Math.abs(prevRGB.red - currentRGB.red),
-              green: Math.abs(prevRGB.green - currentRGB.green),
-              blue: Math.abs(prevRGB.blue - currentRGB.blue),
-            };
+        //     let differences = {
+        //       red: Math.abs(prevRGB.red - currentRGB.red),
+        //       green: Math.abs(prevRGB.green - currentRGB.green),
+        //       blue: Math.abs(prevRGB.blue - currentRGB.blue),
+        //     };
 
-            for (let key in differences) {
+        //     for (let key in differences) {
 
-              if (differences[key] > this.differenceThreshold) {
+        //       if (differences[key] > this.differenceThreshold) {
 
-                return true;
+        //         return true;
 
-              }
+        //       }
 
-            }
+        //     }
 
-            return false;
+        //     return false;
 
-          }
+        //   }
 
-        }
+        // }
       },
       mounted() {
 
